@@ -187,56 +187,29 @@
 <h4 id="3-软件的高级功能包括："><a href="#3-软件的高级功能包括：" class="headerlink" title="3.软件的高级功能包括："></a>3.软件的高级功能包括：</h4><p>　　常规和法规一致性报告，并提供超过 40 个不同的开箱即用模板。
 　　</p>
 <h3 id="4-安装流程"><a href="#4-安装流程" class="headerlink" title="4.安装流程"></a>4.安装流程</h3><p>1.安装前需安装.NET Framework 4.7.2（已安装请忽略）</p>
-<p>2.双击运行Appscan_Setup_1002.exe，选择安装语言，点击确定；<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220415224344881.png" alt="image-20220415224344881"></p>
+<p>2.双击运行Appscan_Setup_1002.exe，选择安装语言，点击确定；</p>
 <p>3.傻瓜式安装，注意记录安装的目录位置（破解时需要用到），安装完成先别启动。</p>
-<p>4.破解安装包下两个文件替换刚安装的根目录下的原文件<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220415230056680.png" alt="image-20220415230056680"></p>
-<p>5.双击桌面图标“HCL AppScan Standard”运行，即可成功进入：<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220415230749132.png" alt="image-20220415230749132"></p>
+<p>4.破解安装包下两个文件替换刚安装的根目录下的原文件!</p>
+<p>5.成功启动！</p>
 <h2 id="二、web环境部署"><a href="#二、web环境部署" class="headerlink" title="二、web环境部署"></a>二、web环境部署</h2><p>1.部署靶场，创建数据库，最终能成功访问网站：</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220415232902305.png" alt="image-20220415232902305"></h3><p>2.根据不同的要求进行扫描参数选择，影响扫描的时间等因素有许多，最终实现扫描结果，亦可生成报告直观明了的查看。<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220415235845972.png" alt="image-20220415235845972"></p>
+<p>2.根据不同的要求进行扫描参数选择，影响扫描的时间等因素有许多，最终实现扫描结果，亦可生成报告直观明了的查看。</p>
 <h2 id="三-AppScan被动手动探索扫描"><a href="#三-AppScan被动手动探索扫描" class="headerlink" title="三.AppScan被动手动探索扫描"></a>三.AppScan被动手动探索扫描</h2><p>被动式扫描：浏览器代理到AppScan，然后进行手工操作，探索产生出的流量给AppScan进行扫描。</p>
 <ul>
 <li>优点：扫描足够精准，覆盖率更加高，减少不必要的干扰包等等</li>
 </ul>
-<h4 id="1-外置设备手工扫描"><a href="#1-外置设备手工扫描" class="headerlink" title="1.外置设备手工扫描"></a>1.外置设备手工扫描</h4><p>1选择【扫描】–【手动探索】–【外部设备】</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417135442012.png" alt="image-20220417135442012"></p>
-<p>2.提前准备：火狐安装FoxyProxy  +设置appscan代理（注意端口号）</p>
-<p>输入标题【appsacn】，添加ip【127.0.0.1】，添加端口【49729】，点击保存</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417135607173.png" alt="image-20220417135607173"></p>
-<p>3.开启appscan代理，操作被检测网站(登录dvwa靶场，随便输入数据，即可在appscan中记录)</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417135812114.png" alt="image-20220417135812114"></p>
-<p>4.切换到appScan 点击【停止记录】,选择对于网站地址，确定</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417140147267.png" alt="image-20220417140147267"></p>
-<p>5.正在扫描时—&gt;点击【扫描】，选择【仅测试】</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417140238187.png" alt="image-20220417140238187"></p>
-<p>6.选择保持的文件名以及路径，等待扫描结果。</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417140453400.png" alt="image-20220417140453400"></p>
-<p>注意:扫描结果仅参考，不能过度依赖！！！</p>
-<h4 id="2-内置浏览器手工扫描"><a href="#2-内置浏览器手工扫描" class="headerlink" title="2.内置浏览器手工扫描"></a>2.内置浏览器手工扫描</h4><p>1.点击【手动探索】，选则【AppScan Chromium 浏览器】</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417141008879.png" alt="image-20220417141008879"></p>
-<p>2.点击是，输入扫描网站 url,勾选自己想扫描的数据等，并确定</p>
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417141116543.png" alt="image-20220417141116543" style="zoom: 67%;" />
+<h4 id="1-外置设备手工扫描"><a href="#1-外置设备手工扫描" class="headerlink" title="1.外置设备手工扫描"></a>1.外置设备手工扫描</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//提前准备：火狐安装FoxyProxy  +设置appscan代理（注意端口号）</span><br><span class="line">输入标题【appsacn】，添加ip【127.0.0.1】，添加端口【49729】，点击保存</span><br><span class="line"></span><br><span class="line">选择【扫描】--【手动探索】--【外部设备】</span><br><span class="line">开启appscan代理，操作被检测网站(登录dvwa靶场，随便输入数据，即可在appscan中记录)</span><br><span class="line"></span><br><span class="line">切换到appScan 点击【停止记录】,选择对于网站地址，确定</span><br><span class="line"></span><br><span class="line">正在扫描时---&gt;点击【扫描】，选择【仅测试】</span><br><span class="line"></span><br><span class="line">选择保持的文件名以及路径，等待扫描结果。</span><br></pre></td></tr></table></figure>
 
-<p>3.此时显示是否登录，但网站登录的安全级别不同，所以直接点击 取消</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417141331336.png" alt="image-20220417141331336"></p>
-<p>4.点击【配置】–【参数和cookie】–【定制头】–添加cookie</p>
-<ul>
-<li><p>浏览器中登录网站，获取low级别cookie<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417141750628.png" alt="image-20220417141750628" style="zoom:67%;" /></p>
-</li>
-<li><p>添加cookie，并确定<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417141831435.png" alt="image-20220417141831435"></p>
-</li>
-</ul>
-<p>5.再次 点击【手动探索】，选则【AppScan Chromium 浏览器】，此时不需要登录就行</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417142000396.png" alt="image-20220417142000396"></p>
-<p>6.操作网站，最后点击右下角确定，把操作网站链接生产流量传达AppScan中</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417142657875.png" alt="image-20220417142657875"></p>
-<p>7.勾选网站，点击确定，开始扫描</p>
-<p>8.之后可按相关操作进行扫描探测了。扫描时间可能比较长！！！</p>
+<p>注意:扫描结果仅参考，不能过度依赖！！！</p>
+<h4 id="2-内置浏览器手工扫描"><a href="#2-内置浏览器手工扫描" class="headerlink" title="2.内置浏览器手工扫描"></a>2.内置浏览器手工扫描</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">点击【手动探索】，选则【AppScan Chromium 浏览器】</span><br><span class="line"></span><br><span class="line">点击是，输入扫描网站 url,勾选自己想扫描的数据等，并确定</span><br><span class="line"></span><br><span class="line">此时显示是否登录，但网站登录的安全级别不同，所以直接点击 取消</span><br><span class="line"></span><br><span class="line">点击【配置】--【参数和cookie】--【定制头】--添加cookie</span><br><span class="line">//- 浏览器中登录网站，获取low级别cookie---- 添加cookie，并确定</span><br><span class="line"></span><br><span class="line">再次 点击【手动探索】，选则【AppScan Chromium 浏览器】，此时不需要登录就行</span><br><span class="line"></span><br><span class="line">操作网站，最后点击右下角确定，把操作网站链接生产流量传达AppScan中</span><br><span class="line"></span><br><span class="line">勾选网站，点击确定，开始扫描</span><br><span class="line"></span><br><span class="line">之后可按相关操作进行扫描探测了。扫描时间可能比较长！！！</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="四、绕过登录验证码深入扫描"><a href="#四、绕过登录验证码深入扫描" class="headerlink" title="四、绕过登录验证码深入扫描"></a>四、绕过登录验证码深入扫描</h2><p>我们工作中最长碰到的工作场景是网站采用https协议，这时我们要用appScan进行扫描时，就需要先安装证书</p>
 <h3 id="1-证书安装"><a href="#1-证书安装" class="headerlink" title="1.证书安装"></a>1.证书安装</h3><p>手动扫描—外部设备—记录代理配置(右上角)—记录代理(选项卡)—AppScan SSL证书–导出—保存文件名称，路径等—找到解压的证书，导入火狐浏览器中</p>
 <p>切换到火狐浏览器，点击【更多】，点击【设置】—-输入证书，点击【回车】，点击【查看证书】—-点击【证书颁发机构】，点击【导入】—选择（appscan）证书，点击【打开】—勾选(两个)信任证书，点击【确定】—确定</p>
 <h3 id="2-手工探测绕过登录"><a href="#2-手工探测绕过登录" class="headerlink" title="2.手工探测绕过登录"></a>2.手工探测绕过登录</h3><p>扫描过程会遇到网站 存在 手机验证码，图形验证码，滑动验证等等，这时候想要深度扫描时，就需要进行登录绕过。有两种方法可以选择</p>
 <p>第一：使用前面介绍的定制头解决</p>
-<p>第二：使用手工探索-外置设备进行登录绕过，接下来演示第二种（不配图了，操作和前面类似）</p>
+<p>第二：使用手工探索-外置设备进行登录绕过，接下来演示第二种（操作和前面类似）</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">新建一个文件，点击【文件】，点击【新建】</span><br><span class="line">选择【扫描web应用程序】</span><br><span class="line">输入被测网址，点击【下一步】</span><br><span class="line">点击【记录】<span class="punctuation">,</span>点击【AppScan Chromium 浏览器】</span><br><span class="line">进行登录</span><br><span class="line">点击【我已登录到站点】</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="operator">/</span><span class="operator">/</span><span class="operator">/</span><span class="operator">/</span>可以看到，登录回放是失败，遇到这种情况，使用手工探索<span class="operator">-</span>外置设备进行登录绕过</span><br><span class="line">点击【关闭】</span><br><span class="line">点击【取消】</span><br><span class="line">点击【取消】</span><br><span class="line">点击【手动扫描】，选择【外部设备】</span><br><span class="line">记录代理端口</span><br><span class="line">切到火狐浏览器，进入被测网站，登录</span><br><span class="line">点击【代理】，点击【选项】，配置相应的appscan代理<span class="punctuation">(</span>注意端口<span class="punctuation">)</span></span><br><span class="line">切换到被测试网站，开启appscan代理，点击想要测试功能</span><br><span class="line">切换到AppScan <span class="punctuation">,</span>点击【停止记录】<span class="punctuation">,</span>选择被测网站，点击【确定】<span class="punctuation">,</span>等待流量加载完成</span><br><span class="line">点击【扫描】，点击【仅测试】<span class="punctuation">,</span>等待测试结果</span><br></pre></td></tr></table></figure>
 
 
@@ -249,8 +222,6 @@
 
 
 <h2 id="六-AppScan扫描报告"><a href="#六-AppScan扫描报告" class="headerlink" title="六.AppScan扫描报告"></a>六.AppScan扫描报告</h2><h3 id="1-加载扫描结果"><a href="#1-加载扫描结果" class="headerlink" title="1.加载扫描结果"></a>1.加载扫描结果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.点击【打开】---2.选择之前保存过的扫描结果---3.等待加载完成</span><br></pre></td></tr></table></figure>
-
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220417155414260.png" alt="image-20220417155414260"  />
 
 <h3 id="2-领导查看的报告"><a href="#2-领导查看的报告" class="headerlink" title="2.领导查看的报告"></a>2.领导查看的报告</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">点击【报告】</span><br><span class="line">模板选择为【缺省值】/【摘要】</span><br><span class="line">最低严重性选择为【中】，测试类型选择为【应用程序】</span><br><span class="line">点击【布局】</span><br><span class="line">选择【其他徽标】，点击上传徽标(公司徽标)---选择徽标，点击打开</span><br><span class="line">修改报告标题，比如输入 【哔哩嘀哩网站安全评估报告】</span><br><span class="line">点击【保存报告】---保存到自定义位置---查看即可</span><br></pre></td></tr></table></figure>
 
@@ -403,24 +374,9 @@
     <article id="post-AWVS--漏洞扫描" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/15/AWVS--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/">AWVS--漏洞扫描</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/15/AWVS--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/" class="archive-article-date">
-  	<time datetime="2022-04-15T09:43:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-15</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="AWVS–漏洞扫描"><a href="#AWVS–漏洞扫描" class="headerlink" title="AWVS–漏洞扫描"></a>AWVS–漏洞扫描</h1><h3 id="1-AWVS简介"><a href="#1-AWVS简介" class="headerlink" title="1.AWVS简介"></a>1.AWVS简介</h3><p>AWVS（Acunetix Web Vulnerability Scanner）是一款知名的网络漏洞扫描工具，通过网络爬虫测试网站安全，检测流行的Web应用攻击，如跨站脚本、sql 注入等。据统计，75% 的互联网攻击目标是基于Web的应用程序。</p>
+        <h1 id="AWVS–漏洞扫描工具"><a href="#AWVS–漏洞扫描工具" class="headerlink" title="AWVS–漏洞扫描工具"></a>AWVS–漏洞扫描工具</h1><h3 id="1-AWVS简介"><a href="#1-AWVS简介" class="headerlink" title="1.AWVS简介"></a>1.AWVS简介</h3><p>AWVS（Acunetix Web Vulnerability Scanner）是一款知名的网络漏洞扫描工具，通过网络爬虫测试网站安全，检测流行的Web应用攻击，如跨站脚本、sql 注入等。据统计，75% 的互联网攻击目标是基于Web的应用程序。</p>
 <h4 id="1-1为什么要用AWVS"><a href="#1-1为什么要用AWVS" class="headerlink" title="1.1为什么要用AWVS"></a>1.1为什么要用AWVS</h4><p>在今天，网站的安全是容易被忽视的，黑客具备广泛的攻击手段，例SQL注入，XSS，文件包含，目录遍历，参数篡改，认证攻击等，虽然你配置了正确的防火墙和WAF，但是这些安全防御软件仍然存在策略性的绕过，因此，需要您定期的扫描你的web应用，但是手动检测你所有的web应用是否存在安全漏洞比较复杂和费时，所以您需要一款自动化的web漏洞扫描工具来检测您的web应用是否存在安全漏洞。</p>
 <ul>
 <li>公司可以和开发方协商，采用万能验证码，如888，碰到就过，但这种在线验证安全性极低，目前很多公司已经不采用了。</li>
@@ -480,7 +436,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/15/AWVS--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/04/14/AWVS--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/">展开全文 >></a>
         </p>
       
 
