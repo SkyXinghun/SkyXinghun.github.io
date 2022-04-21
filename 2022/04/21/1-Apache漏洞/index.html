@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>Apache解析漏洞 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="什么是解析漏洞：解析漏洞主要说的是一些特殊文件被IIS、Apache、Nginx在某种情况下被解释成脚本文件格式的漏洞。 Apache解析漏洞漏洞简介Apache文件解析漏洞与用户的配置有密切关系。严格来说，属于用户配置问题，其实apache本身根本不存在所谓的解析漏洞。 漏洞原理Apache默认一个文件可以有多个以点分隔的后缀,当右边的后缀无法识别(不在Apache\conf\mime.type">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Apache解析漏洞">
 <meta property="og:url" content="http://example.com/2022/04/21/1-Apache%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="什么是解析漏洞：解析漏洞主要说的是一些特殊文件被IIS、Apache、Nginx在某种情况下被解释成脚本文件格式的漏洞。 Apache解析漏洞漏洞简介Apache文件解析漏洞与用户的配置有密切关系。严格来说，属于用户配置问题，其实apache本身根本不存在所谓的解析漏洞。 漏洞原理Apache默认一个文件可以有多个以点分隔的后缀,当右边的后缀无法识别(不在Apache\conf\mime.type">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211715452.png">
 <meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211716422.png">
 <meta property="article:published_time" content="2022-04-21T08:21:35.415Z">
-<meta property="article:modified_time" content="2022-04-21T13:06:01.928Z">
+<meta property="article:modified_time" content="2022-04-21T13:16:50.135Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="apache">
 <meta property="article:tag" content="中间件漏洞">
@@ -163,6 +163,21 @@
           <div id="js-content" class="content-ll">
             <article id="post-1-Apache漏洞" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Apache解析漏洞
+    </h1>
+  
+
+        
+        <a href="/2022/04/21/1-Apache%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2022-04-21T08:21:35.415Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-21</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -464,19 +479,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">scan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">awvs+goby</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">apache</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">中间件漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">scan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">awvs+goby</a>
               </li>
              
               <li class="article-tag-list-item">
