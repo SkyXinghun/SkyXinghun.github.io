@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022/4 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="什么是解析漏洞：解析漏洞主要说的是一些特殊文件被IIS、Apache、Nginx在某种情况下被解释成脚本文件格式的漏洞。 Apache解析漏洞漏洞简介Apache文件解析漏洞与用户的配置有密切关系。严格来说，属于用户配置问题，其实apache本身根本不存在所谓的解析漏洞。 漏洞原理Apache默认一个文件可以有多个以点分隔的后缀,当右边的后缀无法识别(不在Apache\conf\mime.type">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2022/04/index.html">
+<meta property="og:url" content="http://example.com/2022/04/21/1-Apache%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是解析漏洞：解析漏洞主要说的是一些特殊文件被IIS、Apache、Nginx在某种情况下被解释成脚本文件格式的漏洞。 Apache解析漏洞漏洞简介Apache文件解析漏洞与用户的配置有密切关系。严格来说，属于用户配置问题，其实apache本身根本不存在所谓的解析漏洞。 漏洞原理Apache默认一个文件可以有多个以点分隔的后缀,当右边的后缀无法识别(不在Apache\conf\mime.type">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211700816.png">
+<meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211715402.png">
+<meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211715452.png">
+<meta property="og:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211716422.png">
+<meta property="article:published_time" content="2022-04-21T08:21:35.415Z">
+<meta property="article:modified_time" content="2022-04-21T13:06:01.928Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="apache">
+<meta property="article:tag" content="中间件漏洞">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211700816.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,30 +161,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-1-Apache漏洞" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是解析漏洞："><a href="#什么是解析漏洞：" class="headerlink" title="什么是解析漏洞："></a>什么是解析漏洞：</h3><p>解析漏洞主要说的是一些特殊文件被IIS、Apache、Nginx在某种情况下被解释成脚本文件格式的漏洞。</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h2><h3 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h3><p>Apache文件解析漏洞与用户的配置有密切关系。严格来说，属于用户配置问题，其实apache本身根本不存在所谓的解析漏洞。</p>
+<h3 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>Apache默认一个文件可以有多个以点分隔的后缀,当右边的后缀无法识别(不在Apache\conf\mime.types内),则继续&#x3D;&#x3D;从右向左识别&#x3D;&#x3D;。 当 我们请求这样一个文件:1.php.aaa </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aaa -&gt;无法识别,向左 </span><br><span class="line">php -&gt; 发现后缀是php，交给php处理这个文件</span><br><span class="line">最后一步虽然交给了php来处理这个文件，但是php也不认识.aaa的后缀,不解析</span><br></pre></td></tr></table></figure>
+
+<p>其实，解析漏洞的产生,是由于运维人员在配置服务器时，为了使apache服务器能解析php，而自己在httpd.conf文件中添加(去掉#注释)一个 handler</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .php</span><br></pre></td></tr></table></figure>
+
+<p>它的作用也是为了让apache把php文件交给php_module解析,但是注意到它与SetHandler:它的后缀不是用正则去匹配的。所以,&#x3D;&#x3D;在文件名的任何位置匹配到php后缀,它都会让php_module解析&#x3D;&#x3D;。</p>
+<p><img src="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211700816.png" alt="image-20220421170033738"></p>
+<h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>不要使用AddHandler,改用SetHandler,写好正则,就不会有解析问题。</p>
+<p>1、在httpd.conf或httpd-vhosts.conf中加入以下语句，从而禁止文件名格式为.php.的访问权限：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch <span class="string">&quot;.(php.|php3.|php4.|php5.)&quot;</span>&gt;</span><br><span class="line">Order Deny,Allow</span><br><span class="line">Deny <span class="keyword">from</span> all</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、如果需要保留文件名，可以修改程序源代码，替换上传文件名中的“.”为“_”：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$filename = str_replace(&#x27;.&#x27;, &#x27;_&#x27;, $filename);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Apache-解析漏洞（CVE-2017-15715"><a href="#Apache-解析漏洞（CVE-2017-15715" class="headerlink" title="Apache 解析漏洞（CVE-2017-15715)"></a>Apache 解析漏洞（CVE-2017-15715)</h3><h4 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h4><p>Apache HTTPD是一款HTTP服务器，它可以通过mod_php来运行PHP网页。其2.4.0~2.4.29版本中存在一个解析 漏洞，在解析PHP时，1.php\x0a将被按照PHP后缀进行解析，导致绕过一些服务器的安全策略。</p>
+<h4 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h4><p>1、apache这次解析漏洞的根本原因就是这个 $ ，正则表达式中，我们都知道$用来匹配字符串结尾位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$符号: 匹配输入字符串的结尾位置。如果设置了 RegExp 对象的 Multiline 属性，则 $ 也匹配 &#x27;\n&#x27; 或 &#x27;\r&#x27;。</span><br><span class="line">要匹配 $ 字符本身，请使用\$。</span><br><span class="line">如果设置MULTILINE标示，就当作换符处理，如果不设置就当作一行文本处理</span><br></pre></td></tr></table></figure>
+
+<p>2、本次实验是vulhub下的，所以找到apache配置文件，路径在 &#x2F;etc&#x2F;apache2&#x2F; 下， apache2.conf 是apache核 心配置文件查看其文件发现如下代码：意思是包含这两个文件下的以conf结尾的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IncludeOptional conf-enabled/*.conf</span><br><span class="line">IncludeOptional sites-enabled/*.conf</span><br></pre></td></tr></table></figure>
+
+<p>3、跟进该文件发现关于php的配置文件为docker-php.conf,打开为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4、可以看到在正则中是 .php$,因为结尾有个$符号，结合上述原理，$匹配配 ‘\n’ 或 ‘\r’，所以我们修改数据包在 文件名后加\n，\n的十六进制为0a </p>
+<p>5、首先查看index.php文件中的php源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>])) &#123;</span><br><span class="line"><span class="variable">$name</span> = <span class="title function_ invoke__">basename</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>]);</span><br><span class="line"><span class="variable">$ext</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$name</span>,PATHINFO_EXTENSION);</span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">in_array</span>(<span class="variable">$ext</span>, [<span class="string">&#x27;php&#x27;</span>, <span class="string">&#x27;php3&#x27;</span>, <span class="string">&#x27;php4&#x27;</span>, <span class="string">&#x27;php5&#x27;</span>, <span class="string">&#x27;phtml&#x27;</span>, <span class="string">&#x27;pht&#x27;</span>])) &#123;</span><br><span class="line"><span class="keyword">exit</span>(<span class="string">&#x27;bad file&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="string">&#x27;./&#x27;</span> . <span class="variable">$name</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>分析代码文件$name是接受POST请求中的数据，为什么要用POST接收呢？因为POST接收不会去掉我们添加的 \n,如果使用 $_FILES[‘file’] [‘name’] 去接收文件名，则会把\n去掉，所以要满足此漏洞的条件之一就是使用 POST接收文件名。</p>
+<p>$ext等于POST中的文件名后缀，所以文件名不能是[‘php’, ‘php3’, ‘php4’, ‘php5’, ‘phtml’, ‘pht’]，但是可以是 php\n的这种方式，就绕过了if判断。同时这样的文件也可以被解析成PHP。</p>
+<p>6、查看index.php中的html代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>Upload<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;multipart/form­data&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>file:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>filename:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;evil.php&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>7、关于windows和Linux下这个利用是有区别的 </p>
+<p>linux：可以正常利用 </p>
+<p>windows：windows会产生warning的警告，因为涉及到文件读写，而windows操作系统不允许后缀以换行符结尾 的文件命名方式，所以这里会文件会创建失败，就出现了这两个warning了，产生warning就证明已将绕过了。</p>
+<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>1、首先访问漏洞页面，并且进行burp抓包，可以看到POST请求中name为evil.php</p>
+<p><img src="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211715402.png" alt="image-20220421171509317"></p>
+<p>2、将数据包进行修改在evil.php后面添加\n也就是十六进制0A</p>
+<p><img src="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211715452.png" alt="image-20220421171559353"></p>
+<p>3、访问webshell使用工具连接</p>
+<p><img src="https://gitee.com/SkyXinghun/sky-picgo/raw/master/img/202204211716422.png" alt="image-20220421171638325"></p>
+<h4 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a>漏洞修复</h4><p>1、升级到最新版本 </p>
+<p>2、或将上传的文件重命名为为时间戳+随机数+.jpg的格式并禁用上传文件目录执行脚本权限 </p>
+<p>3、获取文件名时用“去掉换行”的函数，比如 $_FILES [‘file’] [‘name’]</p>
+<p>4、在httpd.conf中加入其他正则表达式。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/21/1-Apache%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-04-21T08:21:35.415Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-21</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -189,7 +261,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -202,117 +274,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/21/1-Apache%E6%BC%8F%E6%B4%9E/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/17/AppScan--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/" class="archive-article-date">
-  	<time datetime="2022-04-17T12:56:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/17/AppScan--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AppScan--漏洞扫描</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/17/AppScan--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/">AppScan--漏洞扫描</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">scan</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">appscan</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/学习笔记//" class="article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/14/AWVS--%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F/" class="archive-article-date">
-  	<time datetime="2022-04-14T09:04:22.390Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-14</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">scan</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">awvs+goby</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/学习笔记//" class="article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -335,8 +394,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
